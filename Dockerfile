@@ -1,5 +1,4 @@
-FROM golang:1.10
-WORKDIR /go/src/app
-COPY . .
-RUN go install -v
-CMD ["app"]
+FROM node:6.14.2
+EXPOSE 8080
+COPY server.js .
+CMD [ "node", "server.js" ]
