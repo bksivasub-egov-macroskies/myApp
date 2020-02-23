@@ -2,7 +2,7 @@ pipeline {
     agent {
         kubernetes {
             label 'agent'
-            defaultContainer 'jnlp'
+            defaultContainer 'kaniko'
       yaml """
 apiVersion: v1
 kind: Pod
@@ -26,10 +26,7 @@ spec:
     command:
     - /busybox/cat
     tty: true
-    
-    args: ["--dockerfile=/data/myApp/Dockerfile",
-            "--context=/data/myApp",
-            "--destination=buvan/hiya"]
+  
     volumeMounts:
       - name: kaniko-secret
         mountPath: /kaniko/.docker
@@ -51,13 +48,11 @@ spec:
     stages {
         stage('Verify if image is pushed'){
             steps {
-                container('app') {
                     sh """
                     git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
                     sh '/kaniko/executor -f /data/myApp/Dockerfile -c /data/myApp --destination=buvan/hiya'
                     echo "The image is built and pushed to registry successfully!"                  
                     """
-                }
             }
         }
     }
