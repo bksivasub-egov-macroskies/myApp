@@ -49,7 +49,6 @@ spec:
         stage('Verify if image is pushed'){
             steps {
                     sh """
-            //        git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
                     sh '/kaniko/executor -f /data/myApp/Dockerfile -c /data/myApp --destination=buvan/hiya'
                     echo "The image is built and pushed to registry successfully!"                  
                     """
