@@ -7,6 +7,12 @@ labels:
 spec:
   serviceAccountName: cd-jenkins
   containers:
+  - name: kubectl
+    image: gcr.io/cloud-builders/kubectl
+    command:
+    - cat
+    tty: true
+    
   - name: app
     image: buvan/git
     command: ["/bin/sh","-c","cd /data && git clone https://github.com/bksivasub-egov-macroskies/myApp.git && cat"]
@@ -47,5 +53,8 @@ spec:
           sh '/kaniko/executor -f /data/myApp/Dockerfile -c /data/myApp --destination=buvan/hiya:dev'
             }
         }
+      stage('Deploy application') {
+        container('kubectl'){
+          sh("kubectl get ns dev || kubectl create ns dev")
     }
 }
