@@ -58,3 +58,4 @@ spec:
           sh("kubectl get ns dev || kubectl create ns dev")
     }
 }
+}
