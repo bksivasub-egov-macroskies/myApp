@@ -48,7 +48,7 @@ spec:
 {
     node(POD_LABEL) {
     stage('Build with Kaniko') {
-      git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
+//      git 'https://github.com/jenkinsci/docker-jnlp-slave.git'
       container('kaniko') {
           sh '/kaniko/executor -f /data/myApp/Dockerfile -c /data/myApp --destination=buvan/hiya:dev'
             }
